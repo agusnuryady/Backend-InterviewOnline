@@ -4,29 +4,36 @@ const User = use('App/Models/User')
 
 class UserController {
     
-    async apply({request, response}) {
-        const {email, name, phone_number} = request.all()
+    async apply({request, auth}) {
+        const {email, name, phone_number, password} = request.all()
 
-        const user = await User.create({
+        await User.create({
             name,
             email,
             phone_number,
+            password
         })
 
-        return response.json(user)
+        return auth.attempt(email,password)
+    }
+
+    async login({request, auth,}) {
+        const {email, password} = request.all()
+
+        return auth.attempt(email,password)
     }
 
     async shows({response}) {
 
-        const user = await User.query().select('*').with('answers').fetch()
+        const user = await User.query().select('id','name','email','phone_number').with('answers').fetch()
 
         return response.json(user)
     }
 
-    async show({params, response}) {
-        const id = params.id
+    async show({auth, response}) {
+        const id = auth.user.id
 
-        const user = await User.query().select('*').with('answers').where('id',id).fetch()
+        const user = await User.query().select('id','name','email','phone_number').with('answers').where('id',id).fetch()
 
         return response.json(user)
     }

@@ -7,7 +7,8 @@ class QuestionSchema extends Schema {
   up () {
     this.create('questions', (table) => {
       table.increments()
-      table.integer('number').notNullable().unique()
+      table.integer('group_id').unsigned().references('id').inTable('groups')
+      table.integer('number').notNullable()
       table.text('description').notNullable()
       table.enu('type', ['multiple choice','multi select','text','video record']).notNullable()
       table.integer('timer').notNullable()

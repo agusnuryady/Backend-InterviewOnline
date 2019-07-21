@@ -13,6 +13,10 @@ class Question extends Model {
         return this.hasMany('App/Models/Answer')
     }
 
+    group () {
+        return this.belongsTo('App/Models/Group')
+    }
+
 }
 
 module.exports = Question
