@@ -31,7 +31,7 @@ class GroupController {
 
         const code = params.code
 
-        const answer= await Groups.query().select('*').where('kode',code).fetch()
+        const answer= await Groups.query().select('id').where('kode',code).fetch()
 
         return response.json(answer)
     }
