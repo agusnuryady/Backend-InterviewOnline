@@ -38,5 +38,6 @@ Route.group(() => {
     Route.get('answers', 'AnswerController.shows').middleware('auth')
     Route.post('answer/:id', 'AnswerController.show').middleware('auth')
     Route.post('post/answer', 'AnswerController.post').middleware('auth')
+    Route.post('post/video', 'AnswerController.video').middleware('auth')
 
 }).prefix('api/v1')
